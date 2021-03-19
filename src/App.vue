@@ -16,7 +16,7 @@ export default{
     // **** D3 steps ****
     // select the visual env: Svg
     const svg = d3.select('#viz');
-
+    // ***** Create BARS *****
     // join my data
     const rects = svg.selectAll('rect')
       .data(numbers)
@@ -44,6 +44,18 @@ export default{
       .attr('y', (d,i) => scalePos(i))
       .attr('width', scaleLen)
       .attr('fill', '#bfa766')
+
+    // ***** Create LABELS *****
+    const labels = svg.selectAll('text')
+      .data(numbers)
+      .join('text')
+
+    labels
+      .text((d) => d)
+      .attr('x', scaleLen())
+      .attr('y', (d, i) => scalePos(i))
+      .attr('dy', scalePos.bandwidth()/2)
+      .attr('dx', scaleLen)
   }
 
 }
