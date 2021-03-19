@@ -52,10 +52,10 @@ export default{
 
     labels
       .text((d) => d)
-      .attr('x', scaleLen())
+      .attr('x', scaleLen)
       .attr('y', (d, i) => scalePos(i))
-      .attr('dy', scalePos.bandwidth()/2)
-      .attr('dx', scaleLen)
+      .attr('dy', scalePos.bandwidth() -5)
+      .attr('dx', 30)
   }
 
 }
