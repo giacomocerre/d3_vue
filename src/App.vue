@@ -54,7 +54,7 @@ export default{
       .text((d) => d)
       .attr('x', scaleLen)
       .attr('y', (d, i) => scalePos(i))
-      .attr('dy', scalePos.bandwidth() -5)
+      .attr('dy', scalePos.bandwidth() - 5)
       .attr('dx', 30)
   }
 
