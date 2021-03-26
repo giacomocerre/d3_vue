@@ -21,19 +21,25 @@ export default{
       .domain([0,d3.max(numbers)])
       .range([0, 600])
 
+    const lAxis = d3.axisTop(scaleLen);
+
     const scalePos = d3.scaleBand()
     .domain(d3.range(numbers.length))
     .range([0,200])
     .round({x: true})
     .paddingInner(0.05)
     .paddingOuter(0.05)
+    // range up un graph
+    svg.append('g')
+        .attr('class', 'lAxis')
+        .attr('transform', 'translate(20, 20)')
+        .call(lAxis);
 
     const gs = svg.selectAll('g.bars')// g = elements <g> // .bars = class <g class="bars">
         .data(numbers)
         .join('g').attr('class', 'bars');
 
-    gs.attr('transform', (d,i) => `translate(20, ${scalePos(i)})`)
-
+    gs.attr('transform', (d,i) => `translate(20, ${30 + scalePos(i)} )`)
     // append a <rect> on every <g>
     gs.append('rect')
         .attr('fill', '#bfa766')
