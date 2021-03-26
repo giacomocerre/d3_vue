@@ -16,20 +16,10 @@ export default{
     // **** D3 steps ****
     // select the visual env: Svg
     const svg = d3.select('#viz');
-    // ***** Create BARS *****
-    // join my data
-    const rects = svg.selectAll('rect')
-      .data(numbers)
-      .join('rect');
 
-    // update: join()
     const scaleLen = d3.scaleLinear()
       .domain([0,d3.max(numbers)])
       .range([0, 600])
-
-    //const scalePos = (d, i) => {
-      //return 30 * i + 20;
-    //}
 
     const scalePos = d3.scaleBand()
     .domain(d3.range(numbers.length))
@@ -38,25 +28,25 @@ export default{
     .paddingInner(0.05)
     .paddingOuter(0.05)
 
-    rects
-      .attr('x', 20)
-      .attr('height', scalePos.bandwidth())
-      .attr('y', (d,i) => scalePos(i))
-      .attr('width', scaleLen)
-      .attr('fill', '#bfa766')
+    const gs = svg.selectAll('g.bars')// g = elements <g> // .bars = class <g class="bars">
+        .data(numbers)
+        .join('g').attr('class', 'bars');
 
-    // ***** Create LABELS *****
-    const labels = svg.selectAll('text')
-      .data(numbers)
-      .join('text')
+    gs.attr('transform', (d,i) => `translate(20, ${scalePos(i)})`)
 
-    labels
-      .text((d) => d)
-      .attr('x', scaleLen)
-      .attr('y', (d, i) => scalePos(i))
-      .attr('dy', scalePos.bandwidth() - 5)
-      .attr('dx', 30)
+    // append a <rect> on every <g>
+    gs.append('rect')
+        .attr('fill', '#bfa766')
+        .attr('height', scalePos.bandwidth())
+        .attr('width', scaleLen)
+
+    gs.append('text')
+        .text((d) => d)
+        .attr('x', scaleLen)
+        .attr('y', scalePos.bandwidth() - 5);
   }
+
+
 
 }
 </script>
