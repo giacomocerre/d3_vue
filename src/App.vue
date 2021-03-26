@@ -1,8 +1,22 @@
 <template>
   <div id="app">
-    <h1>D3 Viz</h1>
-    <button></button>
-    <svg width="800" height="600" id="viz"></svg>
+    <b-container>
+      <b-row>
+        <b-col>
+          <h1>D3 Viz</h1>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>Click to shuffle graph</b-col>
+        <b-col><b-button @click="shuffle">Shuffle</b-button></b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <svg width="800" height="600" id="viz"></svg>
+        </b-col>
+      </b-row>
+    </b-container>
+
   </div>
 </template>
 
@@ -65,13 +79,18 @@ export default{
           .attr('width', scaleLen)
 
       gs.selectAll('text')
-          .data(d =>  [d])
+          .data(d => [d])
           .join('text')
           .text((d) => d)
           .attr('x', scaleLen)
-          .attr('y', scalePos.bandwidth() - 5);
+          .attr('y', scalePos.bandwidth() / 2);
+    },
+
+    shuffle() {
+      const N = Math.round(Math.random()*40);
+      this.numbers = d3.range(N).map(d => d + Math.round(Math.random()*400)) //create an array foreach value size [0:N-1]
     }
-  }
+  },
 
 
 
